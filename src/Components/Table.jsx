@@ -8,7 +8,7 @@ const Table = ( { MockData }) => {
   const url = "https://dummyjson.com/products";
 
 
-//   setData(MockData());
+//   setData(MockData());z
   
 
   return (
@@ -22,7 +22,7 @@ const Table = ( { MockData }) => {
             <th className="w-1/3 px-4 py-2">Category</th>
             {/* <th className="w-1/3 px-4 py-2">Decription</th> */}
             <th className="w-1/3 px-4 py-2">Price</th>
-            <th className=" px-4 py-2 w-20">Title</th>
+            <th className=" px-4 py-2">Title</th>
             <th className="w-1/3 px-4 py-2">Rating</th>
           </tr>
         </thead>

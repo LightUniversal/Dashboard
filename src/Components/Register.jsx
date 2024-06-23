@@ -11,8 +11,7 @@ import {
 } from "react-icons/fa";
 import { Form, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { setCredentials } from "../slices/authSlice";
+import { register } from "../Actions";
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState("");
@@ -29,14 +28,24 @@ const RegisterScreen = () => {
 
 
   const submitHandler = async (e) => {
-    
+    e.preventDefault();
+
+    // Simulate a register API call
+    const user = { user: email };
+    localStorage.setItem('user', JSON.stringify(user));
+
+    // Dispatch register success action
+    dispatch(register(user));
+
+    // navigate to homepage
+    navigate("/");
   };
 
   
   return (
     <div>
       <Form
-        className=" text-white w-4/5 mx-auto border border-slate-800 rounded-md shadow-md px-10 py-3"
+        className=" text-white bg-black relative top-1 w-4/5 mx-auto border border-slate-800 rounded-md shadow-md px-10 py-3"
         onSubmit={
           submitHandler
         }
@@ -44,22 +53,7 @@ const RegisterScreen = () => {
         <h2 className=" text-2xl text-center">
           Sign-Up
         </h2>
-        <div className="name my-3">
-          <label htmlFor="name" className="my-2 flex items-center text-green-400">
-            Name <FaUser className=" mx-1 border text-2xl rounded-full p-1 border-slate-600" />
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            className=" w-full h-16 rounded  bg-slate-700 px-4 text-slate-300"
-            placeholder="Enter your name"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-        </div>
+        
         <div className="email py-2">
           <label htmlFor="email" className=" my-2 flex items-center text-green-400">
             Email <FaEnvelope className=" mx-1 border text-2xl rounded-full p-1 border-slate-600" />
@@ -114,64 +108,8 @@ const RegisterScreen = () => {
             }}
           />
         </div>
-        <div className="faculty my-3 py-2">
-          <label
-            htmlFor="faculty"
-            className="my-2 flex items-center text-green-400"
-          >
-            Lets Connect to Facebook <FaFacebook className=" relative -top-0.5 mx-2 border text-2xl rounded-full p-1 border-slate-600" />
-          </label>
-          <input
-            type="text"
-            name="facebook"
-            id="facebook"
-            className="w-full h-16 rounded  bg-slate-700 px-4 text-slate-300"
-            placeholder="Enter your facebook name"
-            value={facebook}
-            onChange={(e) => {
-              setFacebook(e.target.value);
-            }}
-          />
-        </div>
-        <div className="twitter my-3 py-2">
-          <label
-            htmlFor="twitter"
-            className="my-2 flex items-center text-green-400"
-          >
-            Lets Connect to Twitter  <FaTwitter className=" relative -top-0.5 mx-2 border text-2xl rounded-full p-1 border-slate-600" />
-          </label>
-          <input
-            type="text"
-            name="twitter"
-            id="twitter"
-            className="w-full h-16 rounded  bg-slate-700 px-4 text-slate-300"
-            placeholder="Enter your twitter username, eg: @username"
-            value={twitter}
-            onChange={(e) => {
-              setTwitter(e.target.value);
-            }}
-          />
-        </div>
-        {/* <div className="profile my-3">
-          <label
-            htmlFor="profile"
-            className=" flex items-center text-green-400"
-          >
-            Profile <FaUser className=" mx-1" />
-          </label>
-          <input type="file" name="image" id="image" onChange={uploadProfileHandler} className="w-full h-16 rounded  bg-slate-800 p-24 text-slate-300my-1"/>
-          <input
-            type="text"
-            name="image"
-            id="profile"
-            className="w-full h-16 rounded  bg-slate-700 px-4 text-slate-300"
-            placeholder="profile image url"
-            value={profile}
-            onChange={(e) => {
-              setProfile(e.target.value);
-            }}
-          />
-        </div> */}
+        
+        
         <div className="submit my-3">
           <button
             type="submit"

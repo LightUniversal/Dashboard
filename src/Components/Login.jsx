@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { FaEnvelope, FaLock, FaSignInAlt } from 'react-icons/fa'
 import { Form, useNavigate, Link } from 'react-router-dom';
-import { useLoginMutation } from '../slices/userApiSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { setCredentials } from '../slices/authSlice';
+import { useDispatch,useSelector } from 'react-redux';
+import { LOGIN_SUCCESS, login } from '../Actions';
 
 
 const LoginScreen = () => {
@@ -15,31 +13,24 @@ const LoginScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [login, { isLoding }] = useLoginMutation();
-    const { userinfo } = useSelector((state) => state.auth);
-
-    useEffect(() => {
-        if(userinfo) {
-            navigate("/");
-        }
-    }, [userinfo], navigate);
-
+    const userAuth = useSelector((state) => state.user);
     const submitHandler = async (e) => {
         e.preventDefault();
-        try {
-            const res = await login({email, password}).unwrap();
-            dispatch(setCredentials({...res,}));
-            navigate("/");
-            toast.success("Logged In successfully...");
-        } catch (error) {
-            toast.error(error?.data?.message || error.message );
+        
+        const user = { user: email };
+
+        if(user.user.email == localStorage.getItem("user").user) {
+            dispatch(login(user));
+
+    navigate("/");
+
         }
     }
 
 
   return (
     <div>
-      <Form className=' text-white md:w-3/5 w-4/5 mx-auto border border-slate-800 rounded-2xl shadow-md px-10 py-10' onSubmit={ (e) => {submitHandler(e)}}>
+      <Form className=' text-white bg-black top-2 relative md:w-3/5 w-4/5 mx-auto border border-slate-800 rounded-2xl shadow-md px-10 py-10' onSubmit={ (e) => {submitHandler(e)}}>
         <div className="email my-3">
             <h4 className='text-white text-center text-3xl'>
                 Login 

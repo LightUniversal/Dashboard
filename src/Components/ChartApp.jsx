@@ -58,7 +58,7 @@ const ChartApp = ({ price, labels }) => {
     };
   }, [price, labels]);
 
-  return <canvas ref={chartContainer} className="mx-auto" style={{ maxWidth: '500px' }}></canvas>;
+  return <canvas ref={chartContainer} className="mx-auto" style={{ maxWidth: '700px' }}></canvas>;
 };
 
 export default ChartApp;
